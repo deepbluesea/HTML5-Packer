@@ -1,7 +1,7 @@
 HTML5-Packer
 ============
 Pack your HTML5-Apps into a single HTML file.  
-**Example:** [normal](http://elias-schuett.de/git/HTML5-Packer/demo/demo.html) | [packed](http://elias-schuett.de/git/HTML5-Packer/demo/demo.packed.html)
+**Example:** [normal](http://elias-schuett.de/git/HTML5-Packer/demo/index.html) | [packed](http://elias-schuett.de/git/HTML5-Packer/demo/demo.packed.html)
 
 ##Installation
 
@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 		HTML5_Packer: {
 			app: {
 				cwd: "app",      // default: ./
-				dest: "app.html" // default: %pkg.name%
+				dest: "app.html" // default: %pkg.name%.packed.html
 			}
 		}
 	});
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
 };
 ```
 
-To pack your app, simply run: `grunt` or `gruntHTML5_Packer`
+To pack your app, simply run `grunt` or `grunt HTML5_Packer`.
 
 ##What happens to my AJAX requests?
 
