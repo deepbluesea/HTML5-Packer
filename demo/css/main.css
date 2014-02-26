@@ -1,0 +1,29 @@
+* { margin: 0px; padding: 0px; }
+
+body {
+	width: 960px;
+	margin: 100px auto 0px auto;
+}
+
+h1 {
+	margin-bottom: 1em;
+}
+
+p { margin: 10px 0px; }
+
+canvas {
+	display: block;
+}
+
+img {
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+hr {
+	margin: 20px 0px;
+	border: 0px;
+	border-bottom: 1px solid #CCC;
+	height: 0px;
+}
