@@ -19,9 +19,9 @@ module.exports = function(grunt) {
 	var jsp = require("uglify-js").parser;
 	var pro = require("uglify-js").uglify;
 
-	var rawinflate = grunt.file.read("tasks/lib/rawinflate.js");
-	var XMLHttpRequest = grunt.file.read("tasks/lib/XMLHttpRequest.js");
-	var observer = grunt.file.read("tasks/lib/observer.js");
+	var rawinflate = grunt.file.read(__dirname + "/lib/rawinflate.js");
+	var XMLHttpRequest = grunt.file.read(__dirname + "/lib/XMLHttpRequest.js");
+	var observer = grunt.file.read(__dirname + "/lib/observer.js");
 
 	function isExternal(url) {
 		var match = url.match(/^([^:\/?#]+:)?(?:\/\/([^\/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/);
