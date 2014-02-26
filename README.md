@@ -24,7 +24,7 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.loadNpmTasks(v);
+	grunt.loadNpmTasks("HTML5_Packer");
 	grunt.registerTask("default", ["HTML5_Packer"]);
 };
 ```
