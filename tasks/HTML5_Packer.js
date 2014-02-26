@@ -53,7 +53,7 @@ module.exports = function(grunt) {
 			json[path.substr(cwd.length)] = data;
 		});
 
-		$("link").each(function() {
+		$("link[rel=stylesheet]").each(function() {
 			var src = $(this).attr("href");
 			if (isExternal(src)) { return true; }
 
@@ -65,13 +65,13 @@ module.exports = function(grunt) {
 
 		$("script").each(function() {
 			var src = $(this).attr("src");
-			if (isExternal(src)) { return true; }
+			if (!src || isExternal(src)) { return true; }
 
 			var file = grunt.file.read(cwd + src);
 			$(this).removeAttr("src");
-
 			$(this).html(minify(file));
 		});
+
 
 		$("head").prepend("<script>" + minify(observer) + "</script>");
 		$("head").prepend("<script>" + minify(XMLHttpRequest) + "</script>");
