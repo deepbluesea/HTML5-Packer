@@ -5,8 +5,9 @@ Pack your HTML5-Apps into a single HTML file.
 
 ##Installation
 
-Node and grunt should be installed.  
+Requires node and grunt to be installed.  
 `npm install html5-packer --save-dev`
+
 
 ##Usage
 
@@ -29,7 +30,8 @@ module.exports = function(grunt) {
 };
 ```
 
-To pack your app, simply run `grunt` or `grunt HTML5_Packer`.
+To pack your app, simply run `grunt` or `grunt HTML5_Packer`.  
+Note that your folder must contain a **index.html** file. I will add more options in the future.
 
 ##What happens to my AJAX requests?
 
