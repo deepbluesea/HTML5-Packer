@@ -1,7 +1,7 @@
 {
   "name": "html5-packer",
   "description": "Pack your HTML5-Apps into a single HTML file.",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "homepage": "https://elias94xx.github.io/HTML5-Packer",
   "author": {
     "name": "Elias Schütt",
@@ -24,8 +24,10 @@
     "node": ">= 0.8.0"
   },
   "scripts": {},
+  "devDependencies": {
+    "grunt": "~0.4.2"
+  },
   "dependencies": {
-    "grunt": "~0.4.2",
     "cheerio": "~0.13.1",
     "clean-css": "~2.1.1",
     "uglify-js": "~1.3.5",

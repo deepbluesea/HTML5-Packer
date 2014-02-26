@@ -19,7 +19,6 @@ module.exports = function(grunt) {
 	var jsp = require("uglify-js").parser;
 	var pro = require("uglify-js").uglify;
 
-	var $ = cheerio.load(grunt.file.read("demo/index.html"));
 	var rawinflate = grunt.file.read("tasks/lib/rawinflate.js");
 	var XMLHttpRequest = grunt.file.read("tasks/lib/XMLHttpRequest.js");
 	var observer = grunt.file.read("tasks/lib/observer.js");
@@ -44,6 +43,7 @@ module.exports = function(grunt) {
 		var json = {}, dir, count = 0;
 		var cwd = this.data.cwd + "/" || "";
 		var dest = this.data.dest || pkg.name + ".packed.html";
+		var $ = cheerio.load(grunt.file.read(cwd + "index.html"));
 
 		var pattern = [cwd, cwd + "/**","!node_modules/**"];
 		var files = grunt.file.expand(pattern).filter(function(path) { return !grunt.file.isDir(path); });
