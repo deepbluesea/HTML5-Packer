@@ -1,7 +1,9 @@
 HTML5-Packer
 ============
 Pack your HTML5-Apps into a single HTML file.  
-**Example:** [normal](http://elias-schuett.de/git/HTML5-Packer/demo/index.html) | [packed](http://elias-schuett.de/git/HTML5-Packer/demo/demo.packed.html)
+**Example:** [normal](http://elias-schuett.de/git/HTML5-Packer/demo/index.html) | [packed](http://elias-schuett.de/git/HTML5-Packer/demo/demo.packed.html)  
+
+Please note that I'm new to node/grunt plugin development so some things might not be optimal.
 
 ##Installation
 
