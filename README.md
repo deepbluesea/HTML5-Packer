@@ -50,7 +50,5 @@ Yes but there are some disadvantages. A single change in one of your files will 
 Thanks a bunch to the following node modules:
 
 * [grunt](https://github.com/gruntjs/grunt)
-* [cheerio](https://github.com/MatthewMueller/cheerio)
 * [clean-css](https://github.com/GoalSmashers/clean-css)
 * [uglify-js](https://github.com/mishoo/UglifyJS)
-* [html-minifier](https://github.com/kangax/html-minifier)

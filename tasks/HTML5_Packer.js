@@ -11,9 +11,7 @@ module.exports = function(grunt) {
 	"use strict";
 
 	var zlib = require("zlib");
-	var cheerio = require("cheerio");
 	var CleanCSS = require('clean-css');
-	var html_minify = require('html-minifier');
 
 	var pkg = grunt.file.readJSON("package.json");
 	var jsp = require("uglify-js").parser;
@@ -22,6 +20,9 @@ module.exports = function(grunt) {
 	var rawinflate = grunt.file.read(__dirname + "/lib/rawinflate.js");
 	var XMLHttpRequest = grunt.file.read(__dirname + "/lib/XMLHttpRequest.js");
 	var observer = grunt.file.read(__dirname + "/lib/observer.js");
+
+	var rStyle = /<link[^\>]+href=[\"\']([^\"\']+)[\"\'][^\>]*\/?\>/g;
+	var rScript = /<script[^\>]+src\=[\"\']([^\"\']+)[\"\'][^\>]*\><\/script>/g;
 
 	function isExternal(url) {
 		var match = url.match(/^([^:\/?#]+:)?(?:\/\/([^\/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/);
@@ -43,43 +44,43 @@ module.exports = function(grunt) {
 		var json = {}, dir, count = 0;
 		var cwd = this.data.cwd + "/" || "";
 		var dest = this.data.dest || pkg.name + ".packed.html";
-		var $ = cheerio.load(grunt.file.read(cwd + "index.html"));
+		var html = grunt.file.read(cwd + "index.html");
 
 		var pattern = [cwd, cwd + "/**","!node_modules/**"];
 		var files = grunt.file.expand(pattern).filter(function(path) { return !grunt.file.isDir(path); });
 
+		// Gather files
 		files.forEach(function(path) {
 			var data = grunt.file.read(path, { encoding: "base64" });
 			json[path.substr(cwd.length)] = data;
 		});
 
-		$("link[rel=stylesheet]").each(function() {
-			var src = $(this).attr("href");
-			if (isExternal(src)) { return true; }
+		grunt.log.writeln("\n- gathered " + files.length + " files");
 
-			var file = grunt.file.read(cwd + src);
-			$(this).remove();
+		// Remove html comments
+		html = html.replace(/<!--.*-->/g, "");
 
-			$("head").append("<style>" + new CleanCSS().minify(file) + "<style>");
+		// Inline link tags
+		html = html.replace(rStyle, function(full, src) {
+			if (full.indexOf("stylesheet") == -1) { return full; }
+			grunt.log.writeln("- inlined " +  src);
+			return "<style>" + grunt.file.read(cwd + src) + "</style>";
 		});
 
-		$("script").each(function() {
-			var src = $(this).attr("src");
-			if (!src || isExternal(src)) { return true; }
-
-			var file = grunt.file.read(cwd + src);
-			$(this).removeAttr("src");
-			$(this).html(minify(file));
+		// Inline script tags
+		html = html.replace(rScript, function(full, src) {
+			grunt.log.writeln("- inlined " + src);
+			return "<script>" + grunt.file.read(cwd + src) + "</script>";
 		});
 
-
-		$("head").prepend("<script>" + minify(observer) + "</script>");
-		$("head").prepend("<script>" + minify(XMLHttpRequest) + "</script>");
-		$("head").prepend("<script>" + minify(rawinflate) + "</script>");
+		// Insert libs
+		html = html.replace("</head>", "<script>" + minify(rawinflate) + "</script></head>");
+		html = html.replace("</head>", "<script>" + minify(XMLHttpRequest) + "</script></head>");
+		html = html.replace("</head>", "<script>" + minify(observer) + "</script></head>");
 
 		zlib.deflateRaw(JSON.stringify(json), function(err, bfr) {
-			$("head").prepend("<script type='x-source/encrypted'>" + bfr.toString("base64") + "</script>");
-			grunt.file.write(dest, html_minify.minify($.html("html"), { collapseWhitespace: true }));
+			html = html.replace("<head>", "<head><script type='x-source/encrypted'>" + bfr.toString("base64") + "</script>");
+			grunt.file.write(dest, html);
 		});
 	});
 };
