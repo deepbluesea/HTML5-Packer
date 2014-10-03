@@ -14,7 +14,7 @@ module.exports = function(grunt) {
 		HTML5_Packer: {
 			demo: {
 				cwd: "demo",
-				dest: "demo/demo.packed.html"
+				dest: "demo/index.packed.html"
 			}
 		}
 	});
