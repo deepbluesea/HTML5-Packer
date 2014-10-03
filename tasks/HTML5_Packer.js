@@ -12,6 +12,7 @@ module.exports = function(grunt) {
 
 	var zlib = require("zlib");
 	var CleanCSS = require('clean-css');
+	var cleancss = new CleanCSS();
 
 	var pkg = grunt.file.readJSON("package.json");
 	var jsp = require("uglify-js").parser;
@@ -64,7 +65,7 @@ module.exports = function(grunt) {
 		html = html.replace(rStyle, function(full, src) {
 			if (full.indexOf("stylesheet") == -1) { return full; }
 			grunt.log.writeln("- inlined " +  src);
-			return "<style>" + new CleanCSS().minify(grunt.file.read(cwd + src)) + "</style>";
+			return "<style>" + cleancss.minify(grunt.file.read(cwd + src)) + "</style>";
 		});
 
 		// Inline script tags
