@@ -3,27 +3,33 @@
 body {
 	width: 960px;
 	margin: 100px auto 0px auto;
+	font-family: Arial, sans-serif;
 }
 
 h1 {
 	margin-bottom: 1em;
+	font-size: 3em;
 }
 
-p { margin: 10px 0px; }
-
-canvas {
-	display: block;
+h2 {
+	font-size: 2em;
+	border-bottom: 1px solid #EEE;
+	margin-bottom: 1em;
+	padding-bottom: 0.2em;
 }
 
-img {
-	float: left;
-	margin-right: 10px;
-	margin-bottom: 10px;
+pre { margin: 2em 0px; }
+section { margin-bottom: 3em; }
+img,video,audio,canvas { border-radius: 5px; }
+
+.info {
+	margin-top: 1em;
+	border-left: 1px solid #EEE;
+	padding-left: 1em;
+	font-size: 0.6em;
 }
 
-hr {
-	margin: 20px 0px;
-	border: 0px;
-	border-bottom: 1px solid #CCC;
-	height: 0px;
+.result-internal, .result-external {
+	font-size: 0.8em;
+	font-family: "Courier New", monospace;
 }

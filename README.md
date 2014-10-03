@@ -1,7 +1,7 @@
 HTML5-Packer
 ============
 Pack your HTML5-Apps into a single HTML file.  
-**Example:** [normal](http://apps.elias.media/HTML5-Packer/index.html) | [packed](http://apps.elias.media/HTML5-Packer/demo.packed.html)  
+**Example:** [normal](http://elias-schuett.de/git/HTML5-Packer/demo/index.html) | [packed](http://elias-schuett.de/git/HTML5-Packer/demo/index.packed.html) (5 mb)  
 
 Please note that I'm new to node/grunt plugin development so some things might not be optimal.
 
@@ -52,3 +52,13 @@ Thanks a bunch to the following node modules:
 * [grunt](https://github.com/gruntjs/grunt)
 * [clean-css](https://github.com/GoalSmashers/clean-css)
 * [uglify-js](https://github.com/mishoo/UglifyJS)
+
+## Credits
+
+* **demo/audio/a_moment_of_reflection-enrico_altavilla.mp3**  
+Quiet Reflection | Enrico Altavilla  
+http://www.freesoundtrackmusic.com/music_listing_enricoaltavilla.html
+
+* **demo/video/BigBuckBunny_320x180.mp4**  
+Blender Foundation | www.blender.org  
+http://www.bigbuckbunny.org/index.php/download/
