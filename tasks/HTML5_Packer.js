@@ -64,7 +64,7 @@ module.exports = function(grunt) {
 		html = html.replace(rStyle, function(full, src) {
 			if (full.indexOf("stylesheet") == -1) { return full; }
 			grunt.log.writeln("- inlined " +  src);
-			return "<style>" + grunt.file.read(cwd + src) + "</style>";
+			return "<style>" + new CleanCSS().minify(grunt.file.read(cwd + src)) + "</style>";
 		});
 
 		// Inline script tags
