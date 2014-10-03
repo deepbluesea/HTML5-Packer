@@ -8,7 +8,7 @@
 	function mapImgSrc(img) {
 
 		if (img.target) { img = img.target; }
-		if (img.tagName.toUpperCase() != "IMG") { return; }
+		if (!img.tagName || img.tagName.toUpperCase() != "IMG") { return; }
 
 		var root = location.href.substring(0, location.href.lastIndexOf('/'));
 		var regex = new RegExp(root + "/?");

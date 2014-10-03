@@ -4,8 +4,15 @@
 
 	var data = document.querySelector("script").innerHTML;
 	var memory = JSON.parse(RawDeflate.inflate(atob(data)));
-	var _XMLHttpRequest = XMLHttpRequest;
+	var _XMLHttpRequest = window.XMLHttpRequest;
 	var XMLHttpRequest = function(){};
+
+	function isExternalURL(url) {
+		var match = url.match(/^([^:\/?#]+:)?(?:\/\/([^\/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/);
+		if (typeof match[1] === "string" && match[1].length > 0 && match[1].toLowerCase() !== location.protocol) return true;
+		if (typeof match[2] === "string" && match[2].length > 0 && match[2].replace(new RegExp(":("+{"http:":80,"https:":443}[location.protocol]+")?$"), "") !== location.host) return true;
+		return false;
+	}
 
 	XMLHttpRequest.prototype = {
 
@@ -15,7 +22,8 @@
 			this._path = path;
 			this._async = async;
 
-			if (this._method == "post") {
+			if (this._method == "post" || isExternalURL(path)) {
+				this._external = true;
 				this._xmlHttp = new _XMLHttpRequest();
 				this._xmlHttp.open.call(this._xmlHttp, method, path, async);
 			}
@@ -53,9 +61,23 @@
 
 		send: function(params) {
 
-			if (this._method == "post") {
-				this._xmlHttp.onreadystatechange = this.onreadystatechange;
-				this._xmlHttp.send.call(this._xmlHttp, params);
+			if (this._external) {
+
+				var _this = this;
+
+				this._xmlHttp.onreadystatechange = function(e) {
+					_this.response = _this._xmlHttp.response;
+					_this.responseText = _this._xmlHttp.responseText;
+					_this.responseXML = _this._xmlHttp.responseXML;
+					_this.status = _this._xmlHttp.status;
+					_this.readyState = _this._xmlHttp.readyState;
+					_this.statusText = _this._xmlHttp.statusText;
+					_this.onreadystatechange(e);
+				};
+
+				this._xmlHttp.send.apply(this._xmlHttp, params);
+
+				return;
 			}
 
 			var data = atob(memory[this._path]);
