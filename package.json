@@ -1,18 +1,18 @@
 {
   "name": "html5-packer",
   "description": "Pack your HTML5-Apps into a single HTML file.",
-  "version": "0.1.9",
-  "homepage": "https://elias94xx.github.io/HTML5-Packer",
+  "version": "0.2.0",
+  "homepage": "https://elias-schuett.github.io/HTML5-Packer",
   "author": {
     "name": "Elias Schütt",
-    "email": "contact@elias-schuett.de"
+    "email": "contact@elias.media"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/elias94xx/HTML5-Packer.git"
+    "url": "git://github.com/elias-schuett/HTML5-Packer.git"
   },
   "bugs": {
-    "url": "https://github.com/elias94xx/HTML5-Packer/issues"
+    "url": "https://github.com/elias-schuett/HTML5-Packer/issues"
   },
   "licenses": [
     {
