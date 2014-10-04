@@ -56,8 +56,8 @@ module.exports = function(grunt) {
 
 		// Gather files
 		files.forEach(function(path) {
-			var data = grunt.file.read(path, { encoding: "utf8" });
-			json[path.substr(cwd.length)] = data;
+			var data = grunt.file.read(path, { encoding: "base64" });
+			json[path.substr(cwd.length-1)] = data;
 		});
 
 		grunt.log.writeln("\n- gathered " + files.length + " files");

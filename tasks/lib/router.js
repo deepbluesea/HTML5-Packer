@@ -85,7 +85,7 @@
 				return;
 			}
 
-			var data = memory[this._path];
+			var data = atob(memory[this._path]);
 
 			if (!data) {
 				this.readyState = 2;
@@ -115,12 +115,12 @@
 		var regex = new RegExp(root + "/?");
 		var src = img.src.replace(regex, "");
 
-		if (memory[src]) { img.src = "data:image/png;base64," + btoa(memory[src]); }
+		if (memory[src]) { img.src = "data:image/png;base64," + memory[src]; }
 	}
 
 	window.addEventListener("load", function(e) {
 		[].forEach.call(document.querySelectorAll("img"), mapImgSrc);
-		document.body.addEventListener("MutationObserver", mapImgSrc, false);
+		document.body.addEventListener("DOMNodeInserted", mapImgSrc, false);
 	}, false);
 
 }(window));
