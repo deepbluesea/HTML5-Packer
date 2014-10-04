@@ -4,8 +4,6 @@
 
 	var data = document.querySelector("script").innerHTML;
 	var memory = JSON.parse(RawDeflate.inflate(atob(data)));
-	var _XMLHttpRequest = window.XMLHttpRequest;
-	var XMLHttpRequest = function(){};
 
 	function isExternalURL(url) {
 		var match = url.match(/^([^:\/?#]+:)?(?:\/\/([^\/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/);
@@ -13,6 +11,13 @@
 		if (typeof match[2] === "string" && match[2].length > 0 && match[2].replace(new RegExp(":("+{"http:":80,"https:":443}[location.protocol]+")?$"), "") !== location.host) return true;
 		return false;
 	}
+
+	/* ============================ */
+	/* ====== XMLHTTPREQUEST ====== */
+	/* ============================ */
+
+	var _XMLHttpRequest = window.XMLHttpRequest;
+	var XMLHttpRequest = function(){};
 
 	XMLHttpRequest.prototype = {
 
@@ -96,5 +101,26 @@
 	};
 
 	window.XMLHttpRequest = XMLHttpRequest;
+
+	/* ====================== */
+	/* ====== OBSERVER ====== */
+	/* ====================== */
+
+	function mapImgSrc(img) {
+
+		if (img.target) { img = img.target; }
+		if (!img.tagName || img.tagName.toUpperCase() != "IMG" || isExternal(img.src)) { return; }
+
+		var root = location.href.substring(0, location.href.lastIndexOf('/'));
+		var regex = new RegExp(root + "/?");
+		var src = img.src.replace(regex, "");
+
+		if (memory[src]) { img.src = "data:image/png;base64," + memory[src]; }
+	}
+
+	window.addEventListener("load", function(e) {
+		[].forEach.call(document.querySelectorAll("img"), mapImgSrc);
+		document.body.addEventListener("DOMNodeInserted", mapImgSrc, false);
+	}, false);
 
 }(window));
