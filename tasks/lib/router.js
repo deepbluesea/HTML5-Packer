@@ -106,10 +106,12 @@
 	/* ====== OBSERVER ====== */
 	/* ====================== */
 
+	var observed_elements = ["img", "audio", "video", "source"];
+
 	function mapFileSources(elem) {
 
 		if (elem.target) { elem = elem.target; }
-		if (!elem.tagName) { return; }
+		if (!elem.tagName || observed_elements.indexOf(elem.tagName.toLowerCase()) == -1) { return; }
 
 		var root = location.href.substring(0, location.href.lastIndexOf('/'));
 		var regex = new RegExp(root + "/?"), attr, src, ext, mimetype, i;
@@ -146,7 +148,7 @@
 	}
 
 	window.addEventListener("load", function(e) {
-		[].forEach.call(document.querySelectorAll("img,audio,video,source"), mapFileSources);
+		[].forEach.call(document.querySelectorAll(observed_elements.join(",")), mapFileSources);
 		document.body.addEventListener("DOMNodeInserted", mapFileSources, false);
 	}, false);
 
