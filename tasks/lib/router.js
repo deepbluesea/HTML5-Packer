@@ -106,21 +106,48 @@
 	/* ====== OBSERVER ====== */
 	/* ====================== */
 
-	function mapImgSrc(img) {
+	function mapFileSources(elem) {
 
-		if (img.target) { img = img.target; }
-		if (!img.tagName || img.tagName.toUpperCase() != "IMG" || isExternalURL(img.src)) { return; }
+		if (elem.target) { elem = elem.target; }
+		if (!elem.tagName) { return; }
 
 		var root = location.href.substring(0, location.href.lastIndexOf('/'));
-		var regex = new RegExp(root + "/?");
-		var src = img.src.replace(regex, "");
+		var regex = new RegExp(root + "/?"), attr, src, ext, mimetype, i;
 
-		if (memory[src]) { img.src = "data:image/png;base64," + memory[src]; }
+		for (i = 0; i < elem.attributes.length; i++) {
+
+			attr = elem.attributes[i];
+			if (!attr.specified) { continue; }
+
+			src = attr.value.replace(regex, "");
+			ext = src.replace(/.+(\.+)/, "$1");
+
+			// not a file source
+			if (ext.indexOf(".") == -1) { continue; }
+
+			// use offered mimetype
+			if (elem.tagName.toLowerCase() == "source")
+			{ mimetype = elem.getAttribute("type"); }
+
+			// video
+			else if (attr.name == "src" && elem.tagName.toLowerCase() == "video")
+			{ mimetype = "video/" + ext; }
+
+			// audio
+			else if (attr.name == "src" && elem.tagName.toLowerCase() == "audio")
+			{ mimetype = "audio/" + ext; }
+
+			// probably image
+			else { mimetype = "image/" + ext; }
+
+			// insert source as base64 from memory
+			if (memory[src]) { elem[attr.name] = "data:" + mimetype + ";base64," + memory[src]; }
+		}
 	}
 
 	window.addEventListener("load", function(e) {
-		[].forEach.call(document.querySelectorAll("img"), mapImgSrc);
-		document.body.addEventListener("DOMNodeInserted", mapImgSrc, false);
+		[].forEach.call(document.querySelectorAll("img,audio,video,source"), mapFileSources);
+		document.body.addEventListener("DOMNodeInserted", mapFileSources, false);
 	}, false);
 
 }(window));
