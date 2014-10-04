@@ -39,8 +39,19 @@ Note that your folder must contain a **index.html** file. I will add more option
 ##What happens to my AJAX requests?
 
 You don't have to change anything in your code.  
-Internal requests are being redirected automatically to the memory.  
+Internal requests are being redirected automatically to the encrypted data.  
 **See [router.js](https://github.com/elias-schuett/HTML5-Packer/blob/master/tasks/lib/router.js)**
+
+##What happens to links inside attribute?
+
+Currently those links aren't being replaced by the compiler but by JavaScript at runtime from the encrypted data. This behaviour was chosen because elements with links could be included multiple times and for each of them a large base64 string would have to be inserted, which would unnecessarily increase the final file size.  
+
+The currently supported elements are:
+
+* \<img\>
+* \<video\>
+* \<audio\>
+* \<source\>
 
 ##Will browsers be able to cache my App?
 
