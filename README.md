@@ -39,7 +39,7 @@ Note that your folder must contain a **index.html** file. I will add more option
 
 You don't have to change anything in your code.  
 Internal requests are being redirected automatically to the memory.  
-**See [XMLHttpRequest.js](https://github.com/elias94xx/HTML5-Packer/blob/master/tasks/lib/XMLHttpRequest.js)**
+**See [router.js](https://github.com/elias-schuett/HTML5-Packer/blob/master/tasks/lib/router.js)**
 
 ##Will browsers be able to cache my App?
 

@@ -18,9 +18,8 @@ module.exports = function(grunt) {
 	var jsp = require("uglify-js").parser;
 	var pro = require("uglify-js").uglify;
 
-	var rawinflate = grunt.file.read(__dirname + "/lib/rawinflate.js");
-	var XMLHttpRequest = grunt.file.read(__dirname + "/lib/XMLHttpRequest.js");
-	var observer = grunt.file.read(__dirname + "/lib/observer.js");
+	var src_rawinflate = grunt.file.read(__dirname + "/lib/rawinflate.js");
+	var src_router = grunt.file.read(__dirname + "/lib/router.js");
 
 	var rStyle = /<link[^\>]+href=[\"\']([^\"\']+)[\"\'][^\>]*\/?\>/g;
 	var rScript = /<script[^\>]+src\=[\"\']([^\"\']+)[\"\'][^\>]*\><\/script>/g;
@@ -75,9 +74,8 @@ module.exports = function(grunt) {
 		});
 
 		// Insert libs
-		html = html.replace("</head>", "<script>" + minify(rawinflate) + "</script></head>");
-		html = html.replace("</head>", "<script>" + minify(XMLHttpRequest) + "</script></head>");
-		html = html.replace("</head>", "<script>" + minify(observer) + "</script></head>");
+		html = html.replace("</head>", "<script>" + minify(src_rawinflate) + "</script></head>");
+		html = html.replace("</head>", "<script>" + minify(src_router) + "</script></head>");
 
 		zlib.deflateRaw(JSON.stringify(json), function(err, bfr) {
 			html = html.replace("<head>", "<head><script type='x-source/encrypted'>" + bfr.toString("base64") + "</script>");
