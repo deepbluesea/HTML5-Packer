@@ -109,7 +109,7 @@
 	function mapImgSrc(img) {
 
 		if (img.target) { img = img.target; }
-		if (!img.tagName || img.tagName.toUpperCase() != "IMG" || isExternal(img.src)) { return; }
+		if (!img.tagName || img.tagName.toUpperCase() != "IMG" || isExternalURL(img.src)) { return; }
 
 		var root = location.href.substring(0, location.href.lastIndexOf('/'));
 		var regex = new RegExp(root + "/?");
