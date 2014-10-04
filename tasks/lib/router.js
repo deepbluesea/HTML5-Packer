@@ -145,6 +145,8 @@
 			// insert source as base64 from memory
 			if (memory[src]) { elem[attr.name] = "data:" + mimetype + ";base64," + memory[src]; }
 		}
+
+		if (typeof elem.load == "function") { elem.load(); }
 	}
 
 	window.addEventListener("load", function(e) {
