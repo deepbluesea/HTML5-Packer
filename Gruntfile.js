@@ -13,8 +13,9 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		HTML5_Packer: {
 			demo: {
-				cwd: "demo",
-				dest: "demo/index.packed.html"
+				cwd: "demo/",
+				index: "index.html",
+				dest: "index.packed.html"
 			}
 		}
 	});

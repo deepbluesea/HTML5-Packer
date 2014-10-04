@@ -21,8 +21,9 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		HTML5_Packer: {
 			app: {
-				cwd: "app",      // default: ./
-				dest: "app.html" // default: %pkg.name%.packed.html
+				cwd:   "app/",           // default: ./
+				index: "app.html",       // default: index.html
+				dest:  "app.packed.html" // default: index.packed.html
 			}
 		}
 	});

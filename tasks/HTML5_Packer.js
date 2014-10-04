@@ -40,18 +40,23 @@ module.exports = function(grunt) {
 
 	grunt.registerMultiTask("HTML5_Packer", "Pack your HTML5-Apps into a single HTML file.", function() {
 		
-		var done = this.async();
-		var json = {}, dir, count = 0;
-		var cwd = this.data.cwd + "/" || "";
-		var dest = this.data.dest || pkg.name + ".packed.html";
-		var html = grunt.file.read(cwd + "index.html");
+		var done  = this.async();
+		var json  = {}, dir, count = 0;
 
-		var pattern = [cwd, cwd + "/**","!node_modules/**"];
-		var files = grunt.file.expand(pattern).filter(function(path) { return !grunt.file.isDir(path); });
+		var cwd   = (this.data.cwd  || ".") + "/";
+		var index = (this.data.index || "index.html");
+		var dest  = (this.data.dest  || index.replace(/(.+)(\..+)/,"$1.packed$2"));
+
+		// Delete packed file if it already exists
+		if (grunt.file.exists(cwd + dest))
+		{ grunt.file.delete(cwd + dest); }
+
+		var html  = grunt.file.read(cwd + index);
+		var files = grunt.file.expand([cwd + "**", "!" + cwd + index]).filter(function(path) { return !grunt.file.isDir(path); });
 
 		// Gather files
 		files.forEach(function(path) {
-			var data = grunt.file.read(path, { encoding: "base64" });
+			var data = grunt.file.read(path, { encoding: "utf8" });
 			json[path.substr(cwd.length)] = data;
 		});
 
@@ -79,7 +84,7 @@ module.exports = function(grunt) {
 
 		zlib.deflateRaw(JSON.stringify(json), function(err, bfr) {
 			html = html.replace("<head>", "<head><script type='x-source/encrypted'>" + bfr.toString("base64") + "</script>");
-			grunt.file.write(dest, html);
+			grunt.file.write(cwd + dest, html);
 		});
 	});
 };
