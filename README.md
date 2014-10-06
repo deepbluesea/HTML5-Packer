@@ -67,10 +67,10 @@ Thanks a bunch to the following node modules:
 
 ## Credits
 
-* **demo/audio/a_moment_of_reflection-enrico_altavilla.mp3**  
+* **demo/audio/a_moment_of_reflection-enrico_altavilla.ogg**  
 Quiet Reflection | Enrico Altavilla  
 http://www.freesoundtrackmusic.com/music_listing_enricoaltavilla.html
 
-* **demo/video/BigBuckBunny_320x180.mp4**  
+* **demo/video/BigBuckBunny_320x180.ogg**  
 Blender Foundation | www.blender.org  
 http://www.bigbuckbunny.org/index.php/download/
