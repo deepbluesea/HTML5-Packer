@@ -1,7 +1,7 @@
 HTML5-Packer
 ============
 Pack your HTML5-Apps into a single HTML file.  
-**Example:** [normal](http://apps.elias.media/HTML5-Packer/demo/index.html) | [packed](http://apps.elias.media/HTML5-Packer/demo/index.packed.html) (5 mb)  
+**Example:** [normal](http://apps.elias.media/HTML5-Packer/demo/index.html) | [packed](http://apps.elias.media/HTML5-Packer/demo/index.packed.html)  
 
 Please note that I'm new to node/grunt plugin development so some things might not be optimal.
 
