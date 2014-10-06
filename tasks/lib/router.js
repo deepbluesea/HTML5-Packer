@@ -127,6 +127,8 @@
 			// not a file source
 			if (ext.indexOf(".") == -1) { continue; }
 
+			ext = ext.substr(1);
+
 			// use offered mimetype
 			if (elem.tagName.toLowerCase() == "source")
 			{ mimetype = elem.getAttribute("type"); }
@@ -146,7 +148,7 @@
 			if (memory[src]) { elem[attr.name] = "data:" + mimetype + ";base64," + memory[src]; }
 		}
 
-		if (typeof elem.load == "function") { elem.load(); }
+		if (typeof elem.load == "function") { window.setTimeout(function() { elem.load() }, 5); }
 	}
 
 	window.addEventListener("load", function(e) {
